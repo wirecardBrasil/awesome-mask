@@ -1,10 +1,11 @@
 {
   "name": "awesome-mask",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An awesome mask directive for Vue.js using vanilla-masker from `https://github.com/BankFacil/vanilla-masker`",
-  "main": "N",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --presets babel-preset-es2015 --out-dir . "
   },
   "dependencies": {
     "vanilla-masker": "^1.0.9",
@@ -26,5 +27,8 @@
   "files": [
     "index.js"
   ],
-  "main": "index.js"
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0"
+  }
 }

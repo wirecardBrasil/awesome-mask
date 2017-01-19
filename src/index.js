@@ -1,5 +1,6 @@
-import VMasker from 'vanilla-masker'
+'use strict'
 
+import VMasker from 'vanilla-masker'
 
 let mask = {};
 

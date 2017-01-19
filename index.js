@@ -1,23 +1,30 @@
-'use strict'
+'use strict';
 
-import VMasker from 'vanilla-masker'
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _vanillaMasker = require('vanilla-masker');
 
-let mask = {};
+var _vanillaMasker2 = _interopRequireDefault(_vanillaMasker);
 
-let inputHandler = (ev) => {
-  ev.target.value = mask ? VMasker.toPattern(ev.target.value, mask) : ev.target.value
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-export default {
-  bind (el, binding) {
+var mask = {};
+
+var inputHandler = function inputHandler(ev) {
+  ev.target.value = mask ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
+};
+
+exports.default = {
+  bind: function bind(el, binding) {
     mask = binding.expression;
-    el.addEventListener('input', inputHandler)
+    el.addEventListener('input', inputHandler);
   },
-  update (el, binding) {
+  update: function update(el, binding) {
     mask = binding.expression;
   },
-  unbind(el) {
-    el.addEventListener('input', inputHandler)
+  unbind: function unbind(el) {
+    el.addEventListener('input', inputHandler);
   }
-}
+};
