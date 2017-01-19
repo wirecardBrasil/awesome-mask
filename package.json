@@ -1,0 +1,26 @@
+{
+  "name": "awesome-mask",
+  "version": "1.0.0",
+  "description": "An awesome mask directive for Vue.js using vanilla-masker from `https://github.com/BankFacil/vanilla-masker`",
+  "main": "N",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "vanilla-masker": "^1.0.9",
+    "vue": "^2.0.1"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue-directive",
+    "input",
+    "mask",
+    "text",
+    "vue-mask",
+    "awesome",
+    "awesome-mask"
+  ],
+  "author": "Moip",
+  "license": "ISC"
+}
