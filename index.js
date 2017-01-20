@@ -10,21 +10,20 @@ var _vanillaMasker2 = _interopRequireDefault(_vanillaMasker);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mask = {};
-
 var inputHandler = function inputHandler(ev) {
+  var mask = ev.target.dataset.mask;
   ev.target.value = mask ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
 };
 
 exports.default = {
   bind: function bind(el, binding) {
-    mask = binding.value;
+    el.dataset.mask = binding.value;
     el.addEventListener('input', inputHandler);
   },
   update: function update(el, binding) {
-    mask = binding.value;
+    el.dataset.mask = binding.value;
   },
   unbind: function unbind(el) {
-    el.addEventListener('input', inputHandler);
+    el.removeEventListener('input', inputHandler);
   }
 };
