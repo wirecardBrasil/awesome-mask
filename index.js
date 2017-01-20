@@ -18,11 +18,11 @@ var inputHandler = function inputHandler(ev) {
 
 exports.default = {
   bind: function bind(el, binding) {
-    mask = binding.expression;
+    mask = binding.value;
     el.addEventListener('input', inputHandler);
   },
   update: function update(el, binding) {
-    mask = binding.expression;
+    mask = binding.value;
   },
   unbind: function unbind(el) {
     el.addEventListener('input', inputHandler);

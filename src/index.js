@@ -10,11 +10,11 @@ let inputHandler = (ev) => {
 
 export default {
   bind (el, binding) {
-    mask = binding.expression;
+    mask = binding.value;
     el.addEventListener('input', inputHandler)
   },
   update (el, binding) {
-    mask = binding.expression;
+    mask = binding.value;
   },
   unbind(el) {
     el.addEventListener('input', inputHandler)
