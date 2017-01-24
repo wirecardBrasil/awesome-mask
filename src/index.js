@@ -2,8 +2,6 @@
 
 import VMasker from 'vanilla-masker'
 
-
-
 let inputHandler = (ev) => {
   let mask = ev.target.dataset.mask
   ev.target.value = mask ? VMasker.toPattern(ev.target.value, mask) : ev.target.value
@@ -11,13 +9,12 @@ let inputHandler = (ev) => {
 
 export default {
   bind (el, binding) {
-    el.dataset.mask = binding.value;
+    el.dataset.mask = binding.expression
+    el.setAttribute("maxlength", binding.expression.length)
     el.addEventListener('input', inputHandler)
   },
-  update (el, binding) {
-    el.dataset.mask = binding.value;
-  },
   unbind(el) {
+    el.removeAttribute("maxlength")
     el.removeEventListener('input', inputHandler)
   }
 }

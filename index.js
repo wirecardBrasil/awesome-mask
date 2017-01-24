@@ -17,13 +17,12 @@ var inputHandler = function inputHandler(ev) {
 
 exports.default = {
   bind: function bind(el, binding) {
-    el.dataset.mask = binding.value;
+    el.dataset.mask = binding.expression;
+    el.setAttribute("maxlength", binding.expression.length);
     el.addEventListener('input', inputHandler);
   },
-  update: function update(el, binding) {
-    el.dataset.mask = binding.value;
-  },
   unbind: function unbind(el) {
+    el.removeAttribute("maxlength");
     el.removeEventListener('input', inputHandler);
   }
 };
