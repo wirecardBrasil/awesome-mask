@@ -1,6 +1,6 @@
 {
   "name": "awesome-mask",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An awesome mask directive for Vue.js using vanilla-masker from `https://github.com/BankFacil/vanilla-masker`",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,8 @@
   "author": "Moip",
   "license": "ISC",
   "files": [
-    "index.js"
+    "index.js",
+    "scripts"
   ],
   "devDependencies": {
     "babel-cli": "^6.18.0",
