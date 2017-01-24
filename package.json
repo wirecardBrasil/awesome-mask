@@ -25,7 +25,8 @@
   "author": "Moip",
   "license": "ISC",
   "files": [
-    "index.js"
+    "index.js",
+    "scripts"
   ],
   "devDependencies": {
     "babel-cli": "^6.18.0",
