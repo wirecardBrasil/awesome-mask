@@ -3,10 +3,20 @@
 import VMasker from 'vanilla-masker'
 import { isCharacterKeyPress } from './is-character-keypress';
 
+let allowedKeys = [
+  9, // 'tab'
+  37, // 'left'
+  38, // 'up'
+  39, // 'right'
+  40, // 'down'
+]
+
 let inputHandler = (ev) => {
   let mask = ev.target.dataset.mask
-  let isCharacter = isCharacterKeyPress(ev) && ev.keyCode !== 9;
-  if (isCharacter && ev.target.value.length >= mask.length) {
+  let isCharacter = isCharacterKeyPress(ev)
+  let isAllowedKey = allowedKeys.indexOf(ev.keyCode) > -1
+  if(isAllowedKey) return;
+  if (isCharacter && ev.target.value.length >= mask.length ) {
     ev.preventDefault();
   }
   setTimeout( () => {

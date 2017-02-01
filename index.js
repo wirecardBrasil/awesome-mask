@@ -12,9 +12,17 @@ var _isCharacterKeypress = require('./is-character-keypress');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var allowedKeys = [9, // 'tab'
+37, // 'left'
+38, // 'up'
+39, // 'right'
+40];
+
 var inputHandler = function inputHandler(ev) {
   var mask = ev.target.dataset.mask;
-  var isCharacter = (0, _isCharacterKeypress.isCharacterKeyPress)(ev) && ev.keyCode !== 9;
+  var isCharacter = (0, _isCharacterKeypress.isCharacterKeyPress)(ev);
+  var isAllowedKey = allowedKeys.indexOf(ev.keyCode) > -1;
+  if (isAllowedKey) return;
   if (isCharacter && ev.target.value.length >= mask.length) {
     ev.preventDefault();
   }
