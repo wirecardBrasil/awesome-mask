@@ -25,9 +25,7 @@ var inputHandler = function inputHandler(ev) {
 
 exports.default = {
   bind: function bind(el, binding) {
-    console.log(binding.value.length);
     if (binding.value.length < 1) return;
-    console.log('pulei o return');
     el.dataset.mask = binding.value;
     el.setAttribute('maxlength', el.dataset.mask.length);
     el.addEventListener('keydown', inputHandler);
