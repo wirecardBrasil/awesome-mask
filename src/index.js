@@ -11,7 +11,9 @@ let inputHandler = (ev) => {
   if (isCharacter && ev.target.value.length >= mask.length) {
     ev.preventDefault();
   }
-  ev.target.value = mask ? VMasker.toPattern(ev.target.value, mask) : ev.target.value
+  setTimeout( () => {
+    ev.target.value = mask ? VMasker.toPattern(ev.target.value, mask) : ev.target.value
+  }, 0);
 }
 
 export default {

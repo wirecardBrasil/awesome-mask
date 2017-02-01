@@ -15,20 +15,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var inputHandler = function inputHandler(ev) {
   var mask = ev.target.dataset.mask;
   var isCharacter = (0, _isCharacterKeypress.isCharacterKeyPress)(ev) && ev.keyCode !== 9;
-  if (isCharacter && ev.target.value.length >= ev.target.dataset.mask.length) {
+  if (isCharacter && ev.target.value.length >= mask.length) {
     ev.preventDefault();
   }
-  ev.target.value = mask ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
+  setTimeout(function () {
+    ev.target.value = mask ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
+  }, 0);
 };
 
 exports.default = {
   bind: function bind(el, binding) {
     el.dataset.mask = binding.value;
-    el.setAttribute("maxlength", el.dataset.mask.length);
+    el.setAttribute('maxlength', el.dataset.mask.length);
     el.addEventListener('keydown', inputHandler);
   },
   unbind: function unbind(el) {
-    el.removeAttribute("maxlength");
+    el.removeAttribute('maxlength');
     el.removeEventListener('keydown', inputHandler);
   }
 };
