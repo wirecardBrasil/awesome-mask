@@ -19,17 +19,21 @@ var inputHandler = function inputHandler(ev) {
     ev.preventDefault();
   }
   setTimeout(function () {
-    ev.target.value = mask ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
+    ev.target.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
   }, 0);
 };
 
 exports.default = {
   bind: function bind(el, binding) {
+    console.log(binding.value.length);
+    if (binding.value.length < 1) return;
+    console.log('pulei o return');
     el.dataset.mask = binding.value;
     el.setAttribute('maxlength', el.dataset.mask.length);
     el.addEventListener('keydown', inputHandler);
   },
   unbind: function unbind(el) {
+    if (binding.value.length < 1) return;
     el.removeAttribute('maxlength');
     el.removeEventListener('keydown', inputHandler);
   }
