@@ -31,7 +31,7 @@ export default {
     el.setAttribute('maxlength', el.dataset.mask.length)
     el.addEventListener('keydown', inputHandler)
   },
-  unbind(el) {
+  unbind(el, binding) {
     if(binding.value.length < 1) return
     el.removeAttribute('maxlength')
     el.removeEventListener('keydown', inputHandler)
