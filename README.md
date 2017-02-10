@@ -1,5 +1,7 @@
 The awesome-mask runs with `Vue.js` and uses the `vanilla-masker` to make your form awesome with masks.
 
+[Examples](https://moip.github.io/awesome-examples/)
+
 You can use patterns like:
 
 ```
