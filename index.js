@@ -4,9 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vanillaMasker = require('vanilla-masker');
+var _lagdenVanillaMasker = require('lagden-vanilla-masker');
 
-var _vanillaMasker2 = _interopRequireDefault(_vanillaMasker);
+var _lagdenVanillaMasker2 = _interopRequireDefault(_lagdenVanillaMasker);
 
 var _isCharacterKeypress = require('./is-character-keypress');
 
@@ -27,7 +27,7 @@ var inputHandler = function inputHandler(ev) {
     ev.preventDefault();
   }
   setTimeout(function () {
-    ev.target.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
+    ev.target.value = mask && mask.length > 0 ? _lagdenVanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
   }, 0);
 };
 
