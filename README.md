@@ -68,3 +68,5 @@ export default {
 }
 </script>
 ```
+
+DISCLAIMER: If you use Windows, please use the version `0.3.3`, there was a problem with Vanilla-Masker to build at Windows.
