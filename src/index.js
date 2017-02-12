@@ -1,6 +1,6 @@
 'use strict'
 
-import VMasker from 'lagden-vanilla-masker'
+import VMasker from 'vanilla-masker'
 import { isCharacterKeyPress } from './is-character-keypress';
 
 let allowedKeys = [
