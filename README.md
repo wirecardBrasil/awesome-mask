@@ -42,31 +42,4 @@ This directive can also receive a object from your `data` like:
 </script>
 ```
 
-You can also change the mask on the fly:
-
-```vue
-<template>
-  <p>
-    <input v-mask="mask" type="text" @input="updateMask">
-  </p>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      mask: '999.999.999-99'
-    }
-  },
-  methods: {
-    updateMask (val) {
-      if(val.lenght > 14){
-        this.mask = '99.999.999/9999-99'
-      }
-    }
-  }
-}
-</script>
-```
-
 DISCLAIMER: If you use Windows, please use the version `0.3.3`, there was a problem with Vanilla-Masker to build at Windows.
