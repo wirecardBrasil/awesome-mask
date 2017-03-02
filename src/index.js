@@ -40,7 +40,7 @@ export default {
     el.dataset.mask = binding.value
     applyMaskToDefault(el ,binding.value)
     el.setAttribute('maxlength', el.dataset.mask.length)
-    el.addEventListener('keydown', inputHandler)
+    el.addEventListener('keyup', inputHandler)
   },
   update(el, binding) {
     // this is only for v-model
@@ -50,6 +50,6 @@ export default {
   unbind(el, binding) {
     if(binding.value.length < 1) return
     el.removeAttribute('maxlength')
-    el.removeEventListener('keydown', inputHandler)
+    el.removeEventListener('keyup', inputHandler)
   }
 }
