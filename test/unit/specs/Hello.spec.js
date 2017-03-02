@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import Hello from '@/index'
+import { isCharacterKeyPress } from '@/is-character-keypress'
 
 describe('Hello.vue', () => {
   it('should render correct contents', () => {
-    console.log(Hello)
+    console.log(isCharacterKeyPress)
   })
 })
