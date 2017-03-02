@@ -1,6 +1,6 @@
 {
   "name": "awesome-mask",
-  "version": "0.3.9",
+  "version": "0.4.0",
   "description": "An awesome mask directive for Vue.js using vanilla-masker from `https://github.com/BankFacil/vanilla-masker`",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,8 @@
   "license": "ISC",
   "files": [
     "index.js",
-    "is-character-keypress.js"
+    "is-character-keypress.js",
+    "event-listener.js"
   ],
   "devDependencies": {
     "autoprefixer": "^6.7.2",
