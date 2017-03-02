@@ -31,10 +31,4 @@ describe('Detect characters as invalid', () => {
       expect(ev.target.value).to.be.equal('ABD-9999')
     }, 100)
   })
-  
-  it('should format value on listener', () => {
-    ev.target.value = 'ABD9999'
-    inputHandler(ev)
-    expect(ev.target.value).to.be.equal('ABD-9999')
-  })
 })
