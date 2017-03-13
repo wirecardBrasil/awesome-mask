@@ -5,19 +5,19 @@ The awesome-mask runs with `Vue.js` and uses the `vanilla-masker` to make your f
 You can use patterns like:
 
 ```vue
-<input type="text" v-mask="'99/99' />
+<input type="text" v-mask="'99/99'" />
 // Turns 1224 in 12/24
 ```
 
 ```vue
-<input type="text" v-mask="'(99) 9999-9999' />
+<input type="text" v-mask="'(99) 9999-9999'" />
 // Turns 1149949944 in (11) 4994-9944
 ```
 
 
 
 ```vue
-<input type="text" v-mask="'AAA-9999' />
+<input type="text" v-mask="'AAA-9999'" />
 // Turns ABC1234 in ABC-1234
 ```
 
