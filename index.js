@@ -36,6 +36,8 @@ exports.default = {
   update: function update(el, binding) {
     // this is only for v-model
     if (binding.value.length < 1) return;
+    el.dataset.mask = binding.value;
+    el.setAttribute('maxlength', el.dataset.mask.length);
     applyMaskToDefault(el, binding.value);
   },
   unbind: function unbind(el, binding) {
