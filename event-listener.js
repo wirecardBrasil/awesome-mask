@@ -30,4 +30,8 @@ var inputHandler = exports.inputHandler = function inputHandler(ev) {
   setTimeout(function () {
     ev.target.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
   }, 0);
+  var inputEvent = new Event('input');
+  ev.target.dispatchEvent(inputEvent);
+  var changeEvent = new Event('change');
+  ev.target.dispatchEvent(changeEvent);
 };
