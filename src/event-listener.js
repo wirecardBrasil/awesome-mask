@@ -20,4 +20,8 @@ export const inputHandler = (ev) => {
   setTimeout( () => {
     ev.target.value = mask && mask.length > 0 ? VMasker.toPattern(ev.target.value, mask) : ev.target.value
   }, 0)
+  let inputEvent = new Event('input');
+  ev.target.dispatchEvent(inputEvent);
+  let changeEvent = new Event('change');
+  ev.target.dispatchEvent(changeEvent);
 }
