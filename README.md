@@ -1,6 +1,7 @@
 The awesome-mask runs with `Vue.js` and uses the `vanilla-masker` to make your form awesome with masks.
 ![Download Count](https://img.shields.io/npm/dt/awesome-mask.svg)
-[Examples](https://moip.github.io/awesome-examples/)
+![Npm Version](https://img.shields.io/npm/v/awesome-mask.svg)
+
 
 You can use patterns like:
 
@@ -60,3 +61,5 @@ export default {
 }
 </script>
 ```
+
+[Examples](https://moip.github.io/awesome-examples/)
