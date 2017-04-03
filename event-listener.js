@@ -28,8 +28,20 @@ var inputHandler = exports.inputHandler = function inputHandler(ev) {
     ev.preventDefault();
   }
   setTimeout(function () {
-    ev.target.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(ev.target.value, mask) : ev.target.value;
+    maskInput(mask, ev.target);
   }, 0);
+  broadcast(ev);
+};
+
+var maskInput = function maskInput(mask, input) {
+  if (mask === 'money') {
+    input.value = _vanillaMasker2.default.toMoney(input.value);
+  } else {
+    input.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(input.value, mask) : input.value;
+  }
+};
+
+var broadcast = function broadcast(ev) {
   var inputEvent = new Event('input');
   ev.target.dispatchEvent(inputEvent);
   var changeEvent = new Event('change');

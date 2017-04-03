@@ -17,9 +17,21 @@ export const inputHandler = (ev) => {
   if (isCharacter && ev.target.value.length >= mask.length ) {
     ev.preventDefault();
   }
-  setTimeout( () => {
-    ev.target.value = mask && mask.length > 0 ? VMasker.toPattern(ev.target.value, mask) : ev.target.value
+  setTimeout(() => {
+    maskInput(mask, ev.target)
   }, 0)
+  broadcast(ev);
+}
+
+let maskInput = (mask, input) => {
+  if(mask === 'money'){
+    input.value = VMasker.toMoney(input.value);
+  } else {
+    input.value = mask && mask.length > 0 ? VMasker.toPattern(input.value, mask) : input.value
+  }
+}
+
+let broadcast = (ev) => {
   let inputEvent = new Event('input');
   ev.target.dispatchEvent(inputEvent);
   let changeEvent = new Event('change');
