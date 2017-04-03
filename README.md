@@ -15,13 +15,17 @@ You can use patterns like:
 // Turns 1149949944 in (11) 4994-9944
 ```
 
-
-
 ```vue
 <input type="text" v-mask="'AAA-9999'" />
 // Turns ABC1234 in ABC-1234
 ```
 
+You can also format money:
+
+```vue
+<input type="text" v-mask="'money" />
+// Turns 123499 in 1.234,99
+```
 
 This directive can also receive a object from your `data` like:
 
