@@ -32,6 +32,9 @@ export default {
   },
   update(el, binding) {
     // this is only for v-model
+    if(binding.value === 'money'){
+      return
+    }
     if(binding.value.length < 1) return
     el.dataset.mask = binding.value;
     el.setAttribute('maxlength', el.dataset.mask.length)
