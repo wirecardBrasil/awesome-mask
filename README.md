@@ -23,7 +23,7 @@ You can use patterns like:
 You can also format money:
 
 ```vue
-<input type="text" v-mask="'money" />
+<input type="text" v-mask="'money'" />
 // Turns 123499 in 1.234,99
 ```
 
