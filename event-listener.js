@@ -29,8 +29,8 @@ var inputHandler = exports.inputHandler = function inputHandler(ev) {
   }
   setTimeout(function () {
     maskInput(mask, ev.target);
+    broadcast(ev);
   }, 0);
-  broadcast(ev);
 };
 
 var maskInput = function maskInput(mask, input) {

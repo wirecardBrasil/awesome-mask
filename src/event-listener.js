@@ -19,8 +19,8 @@ export const inputHandler = (ev) => {
   }
   setTimeout(() => {
     maskInput(mask, ev.target)
+    broadcast(ev);
   }, 0)
-  broadcast(ev);
 }
 
 let maskInput = (mask, input) => {
