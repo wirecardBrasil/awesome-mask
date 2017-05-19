@@ -22,7 +22,7 @@ var applyMaskToDefault = function applyMaskToDefault(el, mask, isMoney) {
   if (!isInputText) {
     inputText = el.querySelector('input');
   }
-  if (isMoney && inputText.value > 0) {
+  if (isMoney && inputText.value.length > 0) {
     inputText.value = _vanillaMasker2.default.toMoney(inputText.value);
   } else {
     inputText.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(inputText.value, mask) : inputText.value;

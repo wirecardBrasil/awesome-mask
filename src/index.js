@@ -10,7 +10,7 @@ let applyMaskToDefault = (el, mask, isMoney) => {
   if(!isInputText){
     inputText = el.querySelector('input')
   }
-  if(isMoney && inputText.value > 0){
+  if(isMoney && inputText.value.length > 0){
     inputText.value = VMasker.toMoney(inputText.value);
   } else {
     inputText.value = mask && mask.length > 0 ? VMasker.toPattern(inputText.value, mask) : inputText.value
