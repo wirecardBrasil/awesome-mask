@@ -5,11 +5,7 @@ import Vue from 'vue'
 import { inputHandler } from './event-listener'
 
 let applyMaskToDefault = (el, mask, isMoney) => {
-  let isInputText = el instanceof HTMLInputElement ;
-  let inputText = el;
-  if(!isInputText){
-    inputText = el.querySelector('input')
-  }
+  const inputText = getInputText(el);
   if(isMoney && inputText.value.length > 0){
     inputText.value = VMasker.toMoney(inputText.value);
   } else {
@@ -17,33 +13,45 @@ let applyMaskToDefault = (el, mask, isMoney) => {
   }
 }
 
+let getInputText = (el) => {
+  let isInputText = el instanceof HTMLInputElement ;
+  let inputText = el;
+  if(!isInputText){
+    inputText = el.querySelector('input')
+  }
+  return inputText;
+}
+
 export default {
   bind (el, binding) {
     let isMoney = false;
     if(binding.value.length < 1) return
-    el.dataset.mask = binding.value
+    const inputText = getInputText(el);
+    inputText.dataset.mask = binding.value
     if(binding.value === 'money'){
       isMoney = true;
     } else {
-      el.setAttribute('maxlength', el.dataset.mask.length)
+      inputText.setAttribute('maxlength', inputText.dataset.mask.length)
     }
-    applyMaskToDefault(el ,binding.value, isMoney)
-    el.addEventListener('keyup', inputHandler)
+    applyMaskToDefault(inputText, binding.value, isMoney)
+    inputText.addEventListener('keyup', inputHandler)
   },
   update(el, binding) {
     // this is only for v-model
     if(binding.value.length < 1) return
+    const inputText = getInputText(el);
     if(binding.value === 'money'){
-      applyMaskToDefault(el ,binding.value, true)
+      applyMaskToDefault(inputText ,binding.value, true)
       return
     }
-    el.dataset.mask = binding.value;
-    el.setAttribute('maxlength', el.dataset.mask.length)
-    applyMaskToDefault(el ,binding.value)
+    inputText.dataset.mask = binding.value;
+    inputText.setAttribute('maxlength', inputText.dataset.mask.length)
+    applyMaskToDefault(inputText ,binding.value)
   },
   unbind(el, binding) {
     if(binding.value.length < 1) return
-    el.removeAttribute('maxlength')
-    el.removeEventListener('keyup', inputHandler)
+    const inputText = getInputText(el);
+    inputText.removeAttribute('maxlength')
+    inputText.removeEventListener('keyup', inputHandler)
   }
 }
