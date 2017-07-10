@@ -17,11 +17,7 @@ var _eventListener = require('./event-listener');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var applyMaskToDefault = function applyMaskToDefault(el, mask, isMoney) {
-  var isInputText = el instanceof HTMLInputElement;
-  var inputText = el;
-  if (!isInputText) {
-    inputText = el.querySelector('input');
-  }
+  var inputText = getInputText(el);
   if (isMoney && inputText.value.length > 0) {
     inputText.value = _vanillaMasker2.default.toMoney(inputText.value);
   } else {
@@ -29,33 +25,45 @@ var applyMaskToDefault = function applyMaskToDefault(el, mask, isMoney) {
   }
 };
 
+var getInputText = function getInputText(el) {
+  var isInputText = el instanceof HTMLInputElement;
+  var inputText = el;
+  if (!isInputText) {
+    inputText = el.querySelector('input');
+  }
+  return inputText;
+};
+
 exports.default = {
   bind: function bind(el, binding) {
     var isMoney = false;
     if (binding.value.length < 1) return;
-    el.dataset.mask = binding.value;
+    var inputText = getInputText(el);
+    inputText.dataset.mask = binding.value;
     if (binding.value === 'money') {
       isMoney = true;
     } else {
-      el.setAttribute('maxlength', el.dataset.mask.length);
+      inputText.setAttribute('maxlength', inputText.dataset.mask.length);
     }
-    applyMaskToDefault(el, binding.value, isMoney);
-    el.addEventListener('keyup', _eventListener.inputHandler);
+    applyMaskToDefault(inputText, binding.value, isMoney);
+    inputText.addEventListener('keyup', _eventListener.inputHandler);
   },
   update: function update(el, binding) {
     // this is only for v-model
     if (binding.value.length < 1) return;
+    var inputText = getInputText(el);
     if (binding.value === 'money') {
-      applyMaskToDefault(el, binding.value, true);
+      applyMaskToDefault(inputText, binding.value, true);
       return;
     }
-    el.dataset.mask = binding.value;
-    el.setAttribute('maxlength', el.dataset.mask.length);
-    applyMaskToDefault(el, binding.value);
+    inputText.dataset.mask = binding.value;
+    inputText.setAttribute('maxlength', inputText.dataset.mask.length);
+    applyMaskToDefault(inputText, binding.value);
   },
   unbind: function unbind(el, binding) {
     if (binding.value.length < 1) return;
-    el.removeAttribute('maxlength');
-    el.removeEventListener('keyup', _eventListener.inputHandler);
+    var inputText = getInputText(el);
+    inputText.removeAttribute('maxlength');
+    inputText.removeEventListener('keyup', _eventListener.inputHandler);
   }
 };
