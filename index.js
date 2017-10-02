@@ -39,10 +39,11 @@ exports.default = {
     var isMoney = false;
     if (binding.value.length < 1) return;
     var inputText = getInputText(el);
+    inputText.dataset.mask = binding.value;
     if (binding.value === 'money') {
       isMoney = true;
     } else {
-      inputText.setAttribute('maxlength', binding.value.length);
+      inputText.setAttribute('maxlength', inputText.dataset.mask.length);
     }
     applyMaskToDefault(inputText, binding.value, isMoney);
     inputText.addEventListener('keyup', _eventListener.inputHandler);
@@ -55,7 +56,8 @@ exports.default = {
       applyMaskToDefault(inputText, binding.value, true);
       return;
     }
-    inputText.setAttribute('maxlength', binding.value.mask.length);
+    inputText.dataset.mask = binding.value;
+    inputText.setAttribute('maxlength', inputText.dataset.mask.length);
     applyMaskToDefault(inputText, binding.value);
   },
   unbind: function unbind(el, binding) {
