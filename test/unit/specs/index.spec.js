@@ -32,21 +32,9 @@ describe('Directive', () => {
     expect(el.getAttribute('maxlength')).to.be.equal(mask.length.toString())
   })
 
-  it('should add mask to dataset', () => {
-    el.value = 'ABC9424'
-    index.bind(el ,binding)
-    expect(el.dataset.mask).to.be.equal(mask)
-  })
-
   it('should cut the value to mask length', () => {
     el.value = 'ABC942442424242'
     index.bind(el ,binding)
     expect(el.value).to.be.equal('ABC-9424')
-  })
-
-  it('should add mask to dataset', () => {
-    el.value = 'ABC9424'
-    index.bind(el ,binding)
-    expect(el.dataset.mask).to.be.equal(mask)
   })
 })
