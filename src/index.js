@@ -27,11 +27,12 @@ export default {
     let isMoney = false;
     if(binding.value.length < 1) return
     const inputText = getInputText(el);
-    inputText.dataset.mask = binding.value
+    inputText.setAttribute('data-mask', binding.value)
     if(binding.value === 'money'){
       isMoney = true;
     } else {
-      inputText.setAttribute('maxlength', inputText.dataset.mask.length)
+      let maskSize = inputText.getAttribute('data-mask').length
+      inputText.setAttribute('maxlength', maskSize)
     }
     applyMaskToDefault(inputText, binding.value, isMoney)
     inputText.addEventListener('keyup', inputHandler)
@@ -44,8 +45,8 @@ export default {
       applyMaskToDefault(inputText ,binding.value, true)
       return
     }
-    inputText.dataset.mask = binding.value;
-    inputText.setAttribute('maxlength', inputText.dataset.mask.length)
+    inputText.setAttribute('data-mask', binding.value)
+    inputText.setAttribute('maxlength', inputText.getAttribute('data-mask').length)
     applyMaskToDefault(inputText ,binding.value)
   },
   unbind(el, binding) {

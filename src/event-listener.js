@@ -10,7 +10,7 @@ export const allowedKeys = [
 ]
 
 export const inputHandler = (ev) => {
-  let mask = ev.target.dataset.mask
+  let mask = ev.target.getAttribute('data-mask')
   let isCharacter = isCharacterKeyPress(ev)
   let isAllowedKey = allowedKeys.indexOf(ev.keyCode) > -1
   if(isAllowedKey) return;

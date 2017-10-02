@@ -20,7 +20,7 @@ var allowedKeys = exports.allowedKeys = [9, // 'tab'
 40];
 
 var inputHandler = exports.inputHandler = function inputHandler(ev) {
-  var mask = ev.target.dataset.mask;
+  var mask = ev.target.getAttribute('data-mask');
   var isCharacter = (0, _isCharacterKeypress.isCharacterKeyPress)(ev);
   var isAllowedKey = allowedKeys.indexOf(ev.keyCode) > -1;
   if (isAllowedKey) return;
