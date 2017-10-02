@@ -43,7 +43,7 @@ export default {
       applyMaskToDefault(inputText ,binding.value, true)
       return
     }
-    inputText.setAttribute('maxlength', binding.value.mask.length)
+    inputText.setAttribute('maxlength', binding.value.length)
     applyMaskToDefault(inputText ,binding.value)
   },
   unbind(el, binding) {
