@@ -42,8 +42,20 @@ var maskInput = function maskInput(mask, input) {
 };
 
 var broadcast = function broadcast(ev) {
-  var inputEvent = new Event('input');
+  var inputEvent = null;
+  var changeEvent = null;
+
+  try {
+    inputEvent = new Event('input');
+    changeEvent = new Event('change');
+  } catch (err) {
+    inputEvent = document.createEvent('Event');
+    changeEvent = document.createEvent('Event');
+
+    inputEvent.initEvent('input', false, false);
+    changeEvent.initEvent('change', false, false);
+  }
+
   ev.target.dispatchEvent(inputEvent);
-  var changeEvent = new Event('change');
   ev.target.dispatchEvent(changeEvent);
 };
