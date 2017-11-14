@@ -32,8 +32,20 @@ let maskInput = (mask, input) => {
 }
 
 let broadcast = (ev) => {
-  let inputEvent = new Event('input');
+  let inputEvent = null
+  let changeEvent = null
+
+  try {
+    inputEvent = new Event('input');
+    changeEvent = new Event('change');
+  } catch (err) {
+    inputEvent = document.createEvent('Event')
+    changeEvent = document.createEvent('Event')
+
+    inputEvent.initEvent('input', false, false)
+    changeEvent.initEvent('change', false, false)
+  }
+
   ev.target.dispatchEvent(inputEvent);
-  let changeEvent = new Event('change');
   ev.target.dispatchEvent(changeEvent);
 }
