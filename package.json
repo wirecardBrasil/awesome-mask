@@ -1,6 +1,6 @@
 {
   "name": "awesome-mask",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "An awesome mask directive for Vue.js using vanilla-masker from `https://github.com/BankFacil/vanilla-masker`",
   "main": "index.js",
   "scripts": {
