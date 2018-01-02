@@ -26,6 +26,13 @@ describe('Directive', () => {
     expect(el.value).to.be.equal('1.239,99')
   })
 
+  it('should bind and format negative money value', () => {
+    el.value = '-123999'
+    binding.value = 'money'
+    index.bind(el ,binding)
+    expect(el.value).to.be.equal('-1.239,99')
+  })
+
   it('should verify if it has the correct maxlength', () => {
     el.value = 'ABC9424'
     index.bind(el ,binding)

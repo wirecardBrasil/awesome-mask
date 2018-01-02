@@ -35,7 +35,7 @@ var inputHandler = exports.inputHandler = function inputHandler(ev) {
 
 var maskInput = function maskInput(mask, input) {
   if (mask === 'money') {
-    input.value = _vanillaMasker2.default.toMoney(input.value);
+    input.value = _vanillaMasker2.default.toMoney(input.value, { showSignal: true });
   } else {
     input.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(input.value, mask) : input.value;
   }

@@ -39,4 +39,12 @@ describe('Detect characters as invalid', () => {
       expect(ev.target.value).to.be.equal('1.234,99')
     }, 100)
   })
+  it('should format negative money value on listener', () => {
+    el.dataset.mask = 'money';
+    ev.target.value = '-123499'
+    inputHandler(ev)
+    setTimeout( () => {
+      expect(ev.target.value).to.be.equal('-1.234,99')
+    }, 100)
+  })
 })

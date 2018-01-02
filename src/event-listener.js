@@ -25,7 +25,7 @@ export const inputHandler = (ev) => {
 
 let maskInput = (mask, input) => {
   if(mask === 'money'){
-    input.value = VMasker.toMoney(input.value);
+    input.value = VMasker.toMoney(input.value, {showSignal: true});
   } else {
     input.value = mask && mask.length > 0 ? VMasker.toPattern(input.value, mask) : input.value
   }
