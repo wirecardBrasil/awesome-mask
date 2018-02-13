@@ -26,6 +26,13 @@ describe('Directive', () => {
     expect(el.value).to.be.equal('1.239,99')
   })
 
+  it('should bind and format money value with dot separator', () => {
+    el.value = '12399.9'
+    binding.value = 'money'
+    index.bind(el ,binding)
+    expect(el.value).to.be.equal('12.399,90')
+  })
+
   it('should bind and format negative money value', () => {
     el.value = '-123999'
     binding.value = 'money'

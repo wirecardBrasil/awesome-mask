@@ -7,6 +7,10 @@ import { inputHandler } from './event-listener'
 let applyMaskToDefault = (el, mask, isMoney) => {
   const inputText = getInputText(el);
   if(isMoney && inputText.value.length > 0){
+    if(inputText.value.toString().indexOf('.') > 0) {
+      let value = inputText.value * 100
+      inputText.value = VMasker.toMoney(value, {showSignal: true});
+    }
     inputText.value = VMasker.toMoney(inputText.value, {showSignal: true});
   } else {
     inputText.value = mask && mask.length > 0 ? VMasker.toPattern(inputText.value, mask) : inputText.value
