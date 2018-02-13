@@ -19,7 +19,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var applyMaskToDefault = function applyMaskToDefault(el, mask, isMoney) {
   var inputText = getInputText(el);
   if (isMoney && inputText.value.length > 0) {
-    inputText.value = _vanillaMasker2.default.toMoney(inputText.value, { showSignal: true });
+    if (Number.isInteger(inputText.value)) {
+      inputText.value = _vanillaMasker2.default.toMoney(inputText.value, { showSignal: true });
+    } else {
+      inputText.value = _vanillaMasker2.default.toMoney(parseFloat(inputText.value).toFixed(mask.precision), {
+        precision: mask.precision,
+        showSignal: true
+      });
+    }
   } else {
     inputText.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(inputText.value, mask) : inputText.value;
   }
@@ -40,7 +47,7 @@ exports.default = {
     if (binding.value.length < 1) return;
     var inputText = getInputText(el);
     inputText.setAttribute('data-mask', binding.value);
-    if (binding.value === 'money') {
+    if (binding.value.mask === 'money') {
       isMoney = true;
     } else {
       var maskSize = inputText.getAttribute('data-mask').length;
@@ -53,7 +60,7 @@ exports.default = {
     // this is only for v-model
     if (binding.value.length < 1) return;
     var inputText = getInputText(el);
-    if (binding.value === 'money') {
+    if (binding.value.mask === 'money') {
       applyMaskToDefault(inputText, binding.value, true);
       return;
     }
