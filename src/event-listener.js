@@ -24,8 +24,15 @@ export const inputHandler = (ev) => {
 }
 
 let maskInput = (mask, input) => {
-  if(mask === 'money'){
-    input.value = VMasker.toMoney(input.value, {showSignal: true});
+  if (mask.mask === 'money') {
+    if (Number.isInteger(input.value)) {
+      input.value = VMasker.toMoney(input.value, {showSignal: true});
+    } else {
+      input.value = VMasker.toMoney(parseFloat(input.value).toFixed(mask.precision), {
+        precision: mask.precision,
+        showSignal: true
+      });
+    }
   } else {
     input.value = mask && mask.length > 0 ? VMasker.toPattern(input.value, mask) : input.value
   }

@@ -7,7 +7,14 @@ import { inputHandler } from './event-listener'
 let applyMaskToDefault = (el, mask, isMoney) => {
   const inputText = getInputText(el);
   if(isMoney && inputText.value.length > 0){
-    inputText.value = VMasker.toMoney(inputText.value, {showSignal: true});
+    if (Number.isInteger(inputText.value)) {
+      inputText.value = VMasker.toMoney(inputText.value, {showSignal: true});
+    } else {
+      inputText.value = VMasker.toMoney(parseFloat(inputText.value).toFixed(mask.precision), {
+        precision: mask.precision,
+        showSignal: true
+      });
+    }
   } else {
     inputText.value = mask && mask.length > 0 ? VMasker.toPattern(inputText.value, mask) : inputText.value
   }
@@ -28,7 +35,7 @@ export default {
     if(binding.value.length < 1) return
     const inputText = getInputText(el);
     inputText.setAttribute('data-mask', binding.value)
-    if(binding.value === 'money'){
+    if(binding.value.mask === 'money'){
       isMoney = true;
     } else {
       let maskSize = inputText.getAttribute('data-mask').length
@@ -41,7 +48,7 @@ export default {
     // this is only for v-model
     if(binding.value.length < 1) return
     const inputText = getInputText(el);
-    if(binding.value === 'money'){
+    if(binding.value.mask === 'money'){
       applyMaskToDefault(inputText ,binding.value, true)
       return
     }
