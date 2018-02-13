@@ -17,8 +17,14 @@ var _eventListener = require('./event-listener');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var applyMaskToDefault = function applyMaskToDefault(el, mask, isMoney) {
+  var firstBind = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
   var inputText = getInputText(el);
   if (isMoney && inputText.value.length > 0) {
+    if (inputText.value.toString().indexOf('.') > 0 && firstBind) {
+      var value = inputText.value * 100;
+      inputText.value = _vanillaMasker2.default.toMoney(value, { showSignal: true });
+    }
     inputText.value = _vanillaMasker2.default.toMoney(inputText.value, { showSignal: true });
   } else {
     inputText.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(inputText.value, mask) : inputText.value;
@@ -46,7 +52,7 @@ exports.default = {
       var maskSize = inputText.getAttribute('data-mask').length;
       inputText.setAttribute('maxlength', maskSize);
     }
-    applyMaskToDefault(inputText, binding.value, isMoney);
+    applyMaskToDefault(inputText, binding.value, isMoney, true);
     inputText.addEventListener('keyup', _eventListener.inputHandler);
   },
   update: function update(el, binding) {
