@@ -37,8 +37,8 @@ const maskInput = (mask, input) => {
 }
 
 const broadcast = (ev) => {
-  let inputEvent = null
-  let changeEvent = null
+  let inputEvent = () => null
+  let changeEvent = () => null
 
   ({ inputEvent, changeEvent } = initEvents(inputEvent, changeEvent))
 

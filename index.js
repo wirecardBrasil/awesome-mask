@@ -18,48 +18,48 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var applyMaskToDefault = function applyMaskToDefault(el, mask, isMoney) {
   var inputText = getInputText(el);
-  if (isMoney && inputText.value.length > 0) {
+  var isMoneyType = isMoney && inputText.value.length > 0;
+
+  if (isMoneyType) {
     inputText.value = _vanillaMasker2.default.toMoney(inputText.value, { showSignal: true });
   } else {
     inputText.value = mask && mask.length > 0 ? _vanillaMasker2.default.toPattern(inputText.value, mask) : inputText.value;
   }
 };
 
+var setMaxLength = function setMaxLength(inputText) {
+  var maskSize = inputText.getAttribute('data-mask').length;
+  inputText.setAttribute('maxlength', maskSize);
+};
+
 var getInputText = function getInputText(el) {
-  var isInputText = el instanceof HTMLInputElement;
-  var inputText = el;
-  if (!isInputText) {
-    inputText = el.querySelector('input');
-  }
-  return inputText;
+  return !el instanceof HTMLInputElement ? el.querySelector('input') : el;
 };
 
 exports.default = {
   bind: function bind(el, binding) {
-    var isMoney = false;
     if (binding.value.length < 1) return;
+
     var inputText = getInputText(el);
+    var isMoney = binding.value === 'money';
     inputText.setAttribute('data-mask', binding.value);
-    if (binding.value === 'money') {
-      isMoney = true;
-    } else {
-      var maskSize = inputText.getAttribute('data-mask').length;
-      inputText.setAttribute('maxlength', maskSize);
-    }
-    applyMaskToDefault(inputText, binding.value, isMoney);
     inputText.addEventListener('keyup', _eventListener.inputHandler);
+
+    !isMoney && setMaxLength(inputText);
+    applyMaskToDefault(inputText, binding.value, isMoney);
   },
   update: function update(el, binding) {
     // this is only for v-model
     if (binding.value.length < 1) return;
     var inputText = getInputText(el);
-    if (binding.value === 'money') {
-      applyMaskToDefault(inputText, binding.value, true);
-      return;
+    var isMoney = binding.value === 'money';
+
+    if (!isMoney) {
+      inputText.setAttribute('data-mask', binding.value);
+      inputText.setAttribute('maxlength', inputText.getAttribute('data-mask').length);
     }
-    inputText.setAttribute('data-mask', binding.value);
-    inputText.setAttribute('maxlength', inputText.getAttribute('data-mask').length);
-    applyMaskToDefault(inputText, binding.value);
+
+    applyMaskToDefault(inputText, binding.value, isMoney);
   },
   unbind: function unbind(el, binding) {
     if (binding.value.length < 1) return;
