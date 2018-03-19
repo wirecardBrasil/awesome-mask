@@ -21,16 +21,20 @@ var allowedKeys = exports.allowedKeys = [9, // 'tab'
 
 var inputHandler = exports.inputHandler = function inputHandler(ev) {
   var mask = ev.target.getAttribute('data-mask');
-  var isCharacter = (0, _isCharacterKeypress.isCharacterKeyPress)(ev);
-  var isAllowedKey = allowedKeys.indexOf(ev.keyCode) > -1;
-  if (isAllowedKey) return;
-  if (isCharacter && ev.target.value.length >= mask.length) {
+  if (isAllowedKey(ev.keyCode)) return;
+  if ((0, _isCharacterKeypress.isCharacterKeyPress)(ev) && ev.target.value.length >= mask.length) {
     ev.preventDefault();
   }
   setTimeout(function () {
     maskInput(mask, ev.target);
     broadcast(ev);
   }, 0);
+};
+
+var isAllowedKey = function isAllowedKey(code) {
+  return allowedKeys.some(function (key) {
+    return key == code;
+  });
 };
 
 var maskInput = function maskInput(mask, input) {
@@ -42,20 +46,27 @@ var maskInput = function maskInput(mask, input) {
 };
 
 var broadcast = function broadcast(ev) {
-  var inputEvent = null;
-  var changeEvent = null;
+  var _initEvents;
 
+  var inputEvent = null;
+  var changeEvent = null((_initEvents = initEvents(inputEvent, changeEvent), inputEvent = _initEvents.inputEvent, changeEvent = _initEvents.changeEvent, _initEvents));
+
+  ev.target.dispatchEvent(inputEvent);
+  ev.target.dispatchEvent(changeEvent);
+};
+
+var getEventForOldBrowser = function getEventForOldBrowser(eventType) {
+  var ev = document.createEvent('Event');
+  ev.initEvent(eventType, false, false);
+};
+
+var initEvents = function initEvents(inputEvent, changeEvent) {
   try {
     inputEvent = new Event('input');
     changeEvent = new Event('change');
   } catch (err) {
-    inputEvent = document.createEvent('Event');
-    changeEvent = document.createEvent('Event');
-
-    inputEvent.initEvent('input', false, false);
-    changeEvent.initEvent('change', false, false);
+    inputEvent = getEventForOldBrowser('input');
+    changeEvent = getEventForOldBrowser('change');
   }
-
-  ev.target.dispatchEvent(inputEvent);
-  ev.target.dispatchEvent(changeEvent);
+  return { inputEvent: inputEvent, changeEvent: changeEvent };
 };

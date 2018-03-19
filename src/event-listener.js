@@ -36,22 +36,16 @@ const maskInput = (mask, input) => {
   }
 }
 
+const getEventForOldBrowser = (eventType) => {
+  const ev = document.createEvent('Event')
+  ev.initEvent(eventType, false, false)
+  return ev
+}
+
 const broadcast = (ev) => {
   let inputEvent = null
   let changeEvent = null
 
-  ({ inputEvent, changeEvent } = initEvents(inputEvent, changeEvent))
-
-  ev.target.dispatchEvent(inputEvent)
-  ev.target.dispatchEvent(changeEvent)
-}
-
-const getEventForOldBrowser = (eventType) => {
-  const ev = document.createEvent('Event')
-  ev.initEvent(eventType, false, false)
-}
-
-const initEvents = (inputEvent, changeEvent) => {
   try {
     inputEvent = new Event('input')
     changeEvent = new Event('change')
@@ -60,5 +54,8 @@ const initEvents = (inputEvent, changeEvent) => {
     inputEvent = getEventForOldBrowser('input')
     changeEvent = getEventForOldBrowser('change')
   }
-  return { inputEvent, changeEvent }
+
+  ev.target.dispatchEvent(inputEvent)
+  ev.target.dispatchEvent(changeEvent)
 }
+
