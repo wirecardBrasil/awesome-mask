@@ -1,4 +1,4 @@
-import { isCharacterKeyPress } from './is-character-keypress';
+import { isCharacterKeyPress } from './is-character-keypress'
 import VMasker from 'vanilla-masker'
 
 export const allowedKeys = [
@@ -10,42 +10,55 @@ export const allowedKeys = [
 ]
 
 export const inputHandler = (ev) => {
-  let mask = ev.target.getAttribute('data-mask')
-  let isCharacter = isCharacterKeyPress(ev)
-  let isAllowedKey = allowedKeys.indexOf(ev.keyCode) > -1
-  if(isAllowedKey) return;
-  if (isCharacter && ev.target.value.length >= mask.length ) {
-    ev.preventDefault();
+  const mask = ev.target.getAttribute('data-mask')
+  if(isAllowedKey(ev.keyCode)) return
+  if (isCharacterKeyPress(ev)
+        && ev.target.value.length >= mask.length ) {
+    ev.preventDefault()
   }
   setTimeout(() => {
     maskInput(mask, ev.target)
-    broadcast(ev);
+    broadcast(ev)
   }, 0)
 }
 
-let maskInput = (mask, input) => {
+const isAllowedKey = (code) => {
+  return allowedKeys.some(key => key == code)
+}
+
+const maskInput = (mask, input) => {
   if(mask === 'money'){
-    input.value = VMasker.toMoney(input.value, {showSignal: true});
+    input.value = VMasker.toMoney(input.value, {showSignal: true})
   } else {
-    input.value = mask && mask.length > 0 ? VMasker.toPattern(input.value, mask) : input.value
+    input.value = mask && mask.length > 0
+      ? VMasker.toPattern(input.value, mask)
+      : input.value
   }
 }
 
-let broadcast = (ev) => {
+const broadcast = (ev) => {
   let inputEvent = null
   let changeEvent = null
 
+  ({ inputEvent, changeEvent } = initEvents(inputEvent, changeEvent))
+
+  ev.target.dispatchEvent(inputEvent)
+  ev.target.dispatchEvent(changeEvent)
+}
+
+const getEventForOldBrowser = (eventType) => {
+  const ev = document.createEvent('Event')
+  ev.initEvent(eventType, false, false)
+}
+
+const initEvents = (inputEvent, changeEvent) => {
   try {
-    inputEvent = new Event('input');
-    changeEvent = new Event('change');
-  } catch (err) {
-    inputEvent = document.createEvent('Event')
-    changeEvent = document.createEvent('Event')
-
-    inputEvent.initEvent('input', false, false)
-    changeEvent.initEvent('change', false, false)
+    inputEvent = new Event('input')
+    changeEvent = new Event('change')
   }
-
-  ev.target.dispatchEvent(inputEvent);
-  ev.target.dispatchEvent(changeEvent);
+  catch (err) {
+    inputEvent = getEventForOldBrowser('input')
+    changeEvent = getEventForOldBrowser('change')
+  }
+  return { inputEvent, changeEvent }
 }
