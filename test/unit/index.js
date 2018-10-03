@@ -1,9 +1,13 @@
 import Vue from 'vue'
+// Polyfill Object.assign for PhantomJS
+require('babel-polyfill');
+
 Vue.config.productionTip = false
 
 // Polyfill fn.bind() for PhantomJS
 /* eslint-disable no-extend-native */
 Function.prototype.bind = require('function-bind')
+
 
 // require all test files (files that ends with .spec.js)
 const testsContext = require.context('./specs', true, /\.spec$/)

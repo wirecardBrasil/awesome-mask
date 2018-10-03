@@ -4,15 +4,15 @@ import VMasker from 'vanilla-masker'
 import Vue from 'vue'
 import { inputHandler } from './event-listener'
 
-const applyMaskToDefault = (el, mask, isMoney) => {
+const applyMaskToDefault = (el, mask, isMoney, opts) => {
   const inputText = getInputText(el)
   const isMoneyType = isMoney && inputText.value.length > 0
 
   if (isMoneyType) {
-    inputText.value = VMasker.toMoney(inputText.value, {showSignal: true})
+    inputText.value = VMasker.toMoney(inputText.value, Object.assign({showSignal: true}, opts))
   } else {
     inputText.value = mask && mask.length > 0
-      ? VMasker.toPattern(inputText.value, mask)
+      ? VMasker.toPattern(inputText.value, Object.assign({pattern: mask}, opts))
       : inputText.value
   }
 }
@@ -25,31 +25,39 @@ const setMaxLength = (inputText) => {
 const getInputText = (el) => {
   return !el instanceof HTMLInputElement ? el.querySelector('input') : el
 }
+const getOpts = (value) => {
+  if (typeof value === 'object') {
+    return value;
+  }
+  return { value }
+};
 
 export default {
   bind (el, binding) {
     if(binding.value.length < 1) return
 
     const inputText = getInputText(el)
-    const isMoney = binding.value === 'money'
-    inputText.setAttribute('data-mask', binding.value)
+    const opts = getOpts(binding.value);
+    const isMoney = opts.value === 'money'
+    inputText.setAttribute('data-mask', opts.value)
     inputText.addEventListener('keyup', inputHandler)
 
     !isMoney && setMaxLength(inputText)
-    applyMaskToDefault(inputText, binding.value, isMoney)
+    applyMaskToDefault(inputText, opts.value, isMoney, opts)
   },
   update(el, binding) {
     // this is only for v-model
     if(binding.value.length < 1) return
     const inputText = getInputText(el)
-    const isMoney = binding.value === 'money'
+    const opts = getOpts(binding.value);
+    const isMoney = opts.value === 'money'
 
     if(!isMoney) {
-      inputText.setAttribute('data-mask', binding.value)
+      inputText.setAttribute('data-mask', opts.value)
       inputText.setAttribute('maxlength', inputText.getAttribute('data-mask').length)
     }
 
-    applyMaskToDefault(inputText ,binding.value, isMoney)
+    applyMaskToDefault(inputText, opts.value, isMoney, opts)
   },
   unbind(el, binding) {
     if(binding.value.length < 1) return

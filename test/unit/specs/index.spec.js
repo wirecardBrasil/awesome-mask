@@ -44,4 +44,11 @@ describe('Directive', () => {
     index.bind(el ,binding)
     expect(el.value).to.be.equal('ABC-9424')
   })
+
+  it('should allow passing options', () => {
+    el.value = '123999'
+    binding.value = {value: 'money', separator: '.', delimiter: ','};
+    index.bind(el ,binding)
+    expect(el.value).to.be.equal('1,239.99')
+  });
 })
