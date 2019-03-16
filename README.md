@@ -66,4 +66,4 @@ export default {
 </script>
 ```
 
-[Examples](https://moip.github.io/awesome-examples/)
+[Examples](https://wirecardbrasil.github.io/awesome-examples/)
