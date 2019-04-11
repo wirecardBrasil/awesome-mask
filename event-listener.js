@@ -45,22 +45,16 @@ var maskInput = function maskInput(mask, input) {
   }
 };
 
-var broadcast = function broadcast(ev) {
-  var _initEvents;
-
-  var inputEvent = null;
-  var changeEvent = null((_initEvents = initEvents(inputEvent, changeEvent), inputEvent = _initEvents.inputEvent, changeEvent = _initEvents.changeEvent, _initEvents));
-
-  ev.target.dispatchEvent(inputEvent);
-  ev.target.dispatchEvent(changeEvent);
-};
-
 var getEventForOldBrowser = function getEventForOldBrowser(eventType) {
   var ev = document.createEvent('Event');
   ev.initEvent(eventType, false, false);
+  return ev;
 };
 
-var initEvents = function initEvents(inputEvent, changeEvent) {
+var broadcast = function broadcast(ev) {
+  var inputEvent = null;
+  var changeEvent = null;
+
   try {
     inputEvent = new Event('input');
     changeEvent = new Event('change');
@@ -68,5 +62,7 @@ var initEvents = function initEvents(inputEvent, changeEvent) {
     inputEvent = getEventForOldBrowser('input');
     changeEvent = getEventForOldBrowser('change');
   }
-  return { inputEvent: inputEvent, changeEvent: changeEvent };
+
+  ev.target.dispatchEvent(inputEvent);
+  ev.target.dispatchEvent(changeEvent);
 };
